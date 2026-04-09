@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#F26522">
+<title>MARTÍN — Brasil Feria 2026</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { width:100%; height:100%; overflow-x:hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #111;
+  color: #e8e8e8;
+  line-height: 1.5;
+  padding-bottom: 90px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #F26522 0%, #c94d0a 100%);
+  color: white;
+  padding: 16px 20px 14px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.header-top { display: flex; justify-content: space-between; align-items: center; }
+.header h1 { font-size: 26px; font-weight: 900; letter-spacing: -1px; flex: 1; text-align: center; }
+.header p { font-size: 11px; opacity: 0.9; margin-top: 2px; letter-spacing: 0.5px; }
+.theme-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* NAV */
+.nav-tabs {
+  display: flex;
+  background: #1a1a1a;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 8px;
+  gap: 2px;
+  position: sticky;
+  top: 76px;
+  z-index: 99;
+  border-bottom: 2px solid #2a2a2a;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  flex: 0 0 auto;
+  padding: 11px 14px;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+.nav-tab.active { color: #F26522; border-bottom-color: #F26522; }
+
+/* CONTAINER */
+.container { padding: 14px; }
+.tab-content { display: none; animation: fadeIn 0.25s ease; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* CARDS */
+.card {
+  background: #1e1e1e;
+  border-left: 4px solid #F26522;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.card h3 { color: #F26522; font-size: 15px; margin-bottom: 8px; font-weight: 700; }
+.card p { font-size: 14px; line-height: 1.65; margin-bottom: 6px; }
+.card ul { margin-left: 18px; margin-top: 8px; }
+.card li { margin-bottom: 7px; font-size: 14px; line-height: 1.5; }
+
+/* SECTION TITLE */
+.section-title {
+  color: #F26522;
+  font-size: 17px;
+  font-weight: 800;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+.section-sub { font-size: 12px; opacity: 0.6; margin-bottom: 14px; }
+
+/* STATS */
+.stat {
+  display: inline-block;
+  background: rgba(242,101,34,0.12);
+  padding: 7px 11px;
+  margin: 4px 4px 4px 0;
+  border-radius: 4px;
+  border-left: 3px solid #F26522;
+  font-size: 12px;
+  font-weight: 600;
+  color: #F26522;
+}
+
+/* BADGES */
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  margin: 3px 3px 3px 0;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.badge-green { background: rgba(81,207,102,0.12); color: #51cf66; border-left: 2px solid #51cf66; }
+.badge-blue { background: rgba(74,158,255,0.12); color: #4a9eff; border-left: 2px solid #4a9eff; }
+.badge-orange { background: rgba(242,101,34,0.12); color: #F26522; border-left: 2px solid #F26522; }
+
+/* POWER BOX */
+.power-box {
+  background: rgba(242,101,34,0.08);
+  border: 1px solid rgba(242,101,34,0.3);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.power-box h3 { color: #F26522; font-size: 14px; margin-bottom: 8px; font-weight: 700; }
+.power-box p, .power-box li { font-size: 14px; line-height: 1.6; }
+.power-box ol, .power-box ul { margin-left: 18px; }
+.power-box li { margin-bottom: 6px; }
+
+/* OBJECTIONS */
+.objection {
+  background: #1a1a1a;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 4px solid #ff6b6b;
+}
+.objection-title { color: #ff6b6b; font-weight: 700; margin-bottom: 10px; font-size: 13px; }
+.answer { background: rgba(81,207,102,0.08); border-left: 3px solid #51cf66; padding: 10px 12px; border-radius: 4px; margin-top: 8px; }
+.answer-label { color: #51cf66; font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.answer p { font-size: 13px; line-height: 1.6; }
+
+/* DIFFERENTIATORS */
+.diff-card {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border-top: 3px solid #F26522;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.diff-num { font-size: 28px; font-weight: 900; color: rgba(242,101,34,0.3); margin-bottom: 4px; }
+.diff-title { font-size: 16px; font-weight: 800; color: #F26522; margin-bottom: 6px; }
+.diff-hook { font-size: 15px; color: #e8e8e8; font-style: italic; background: rgba(255,255,255,0.04); padding: 10px 12px; border-radius: 4px; margin: 8px 0; line-height: 1.6; }
+.diff-detail { font-size: 13px; color: #aaa; line-height: 1.6; }
+
+/* SEQUENCE */
+.sequence-step {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  background: #1e1e1e;
+  padding: 13px;
+  border-radius: 8px;
+}
+.step-num {
+  background: #F26522;
+  color: white;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  flex-shrink: 0;
+}
+.step-body strong { font-size: 14px; display: block; margin-bottom: 4px; }
+.step-body p { font-size: 13px; color: #aaa; line-height: 1.5; }
+
+/* QUOTE */
+.quote {
+  background: #0d0d0d;
+  border-left: 3px solid #F26522;
+  padding: 12px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-style: italic;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* COLLAPSE */
+.collapse-btn {
+  background: rgba(255,255,255,0.06);
+  border: none;
+  color: #aaa;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 4px;
+}
+.collapse-content { display: none; padding: 8px 0; }
+.collapse-content.show { display: block; }
+
+/* TEXTAREA & BUTTON */
+.textarea {
+  width: 100%;
+  min-height: 80px;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #e8e8e8;
+  padding: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  margin: 10px 0;
+}
+.btn {
+  background: #F26522;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+.btn:active { background: #c94d0a; }
+
+/* ALERT BOX */
+.alert-green {
+  background: rgba(81,207,102,0.1);
+  border: 1px solid rgba(81,207,102,0.3);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.alert-green h3 { color: #51cf66; font-size: 14px; margin-bottom: 8px; }
+.alert-green p { font-size: 13px; line-height: 1.6; }
+
+/* CHECKLIST */
+.checklist { list-style: none; margin: 0; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.checklist li:last-child { border-bottom: none; }
+.check-icon { font-size: 18px; flex-shrink: 0; }
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 11px;
+  color: #444;
+}
+
+/* LIGHT MODE */
+body.light {
+  background: #f5f5f5;
+  color: #111;
+}
+body.light .card { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+body.light .nav-tabs { background: #fff; border-bottom-color: #eee; }
+body.light .nav-tab { color: #999; }
+body.light .diff-card { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+body.light .objection { background: #fff5f5; }
+body.light .power-box { background: rgba(242,101,34,0.05); }
+body.light .sequence-step { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+body.light .textarea { background: #fff; border-color: #ddd; color: #111; }
+body.light .quote { background: #f9f9f9; color: #444; }
+body.light .collapse-btn { background: rgba(0,0,0,0.05); color: #666; }
+body.light .alert-green { background: rgba(81,207,102,0.07); }
+body.light .header { background: linear-gradient(135deg, #F26522 0%, #c94d0a 100%); }
+body.light .section-title { border-bottom-color: #eee; }
+body.light .stat { background: rgba(242,101,34,0.07); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div style="width:36px"></div>
+    <div>
+      <h1>MARTÍN</h1>
+      <p>MARTILINE · BRASIL FERIA 2026</p>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  </div>
+</div>
+
+<div class="nav-tabs" id="navTabs">
+  <button class="nav-tab active" onclick="showTab('narrativa',this)">Narrativa</button>
+  <button class="nav-tab" onclick="showTab('diferenciadores',this)">Dif.</button>
+  <button class="nav-tab" onclick="showTab('preguntas',this)">Preguntas</button>
+  <button class="nav-tab" onclick="showTab('objeciones',this)">Objeciones</button>
+  <button class="nav-tab" onclick="showTab('cierre',this)">Cierre</button>
+  <button class="nav-tab" onclick="showTab('practica',this)">Práctica</button>
+</div>
+
+<div class="container">
+
+<!-- NARRATIVA -->
+<div id="narrativa" class="tab-content active">
+  <div class="section-title">TU HISTORIA</div>
+  <p class="section-sub">Lo que dices en los primeros 60 segundos define todo.</p>
+
+  <div class="card">
+    <h3>Elevator Pitch (30 seg)</h3>
+    <div class="quote">
+      "Soy Martín, de Martiline. Somos un freight forwarder Chile-Perú especializado en minería, agroindustria y carga crítica. 20 años moviendo lo que otros no pueden. ¿Qué mueves tú?"
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Contexto de Empresa</h3>
+    <p>Martiline SpA (Chile) + Martiline SAC (Perú). Presencia bilateral real, no solo papel.</p>
+    <div style="margin-top:10px">
+      <span class="stat">+20 años</span>
+      <span class="stat">Chile ↔ Perú</span>
+      <span class="stat">Minería</span>
+      <span class="stat">Agroexport</span>
+      <span class="stat">Carga Urgente</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Clientes Ancla (úsalos)</h3>
+    <div style="margin-top:6px">
+      <span class="badge badge-green">VULCO / WEIR</span>
+      <span class="badge badge-green">SANDVIK</span>
+      <span class="badge badge-green">GELYMAR</span>
+      <span class="badge badge-green">DSI Underground</span>
+    </div>
+    <p style="margin-top:10px; font-size:13px; color:#aaa">Estos nombres abren puertas. Menciónalos cuando corresponda, no al inicio.</p>
+  </div>
+
+  <div class="power-box">
+    <h3>⚡ Tu Ventaja de Edad</h3>
+    <p>No te disculpes por ser joven. Reencuadralo:</p>
+    <div class="quote" style="margin-top:8px; background:transparent; padding:0; font-size:14px">
+      "Soy la cara nueva de 20 años de experiencia. Detrás mío hay un equipo que ya manejó esto."
+    </div>
+  </div>
+</div>
+
+<!-- DIFERENCIADORES -->
+<div id="diferenciadores" class="tab-content">
+  <div class="section-title">LOS 4 DIFERENCIADORES</div>
+  <p class="section-sub">Memoriza el concepto. Las palabras exactas las improvisas.</p>
+
+  <div class="diff-card">
+    <div class="diff-num">01</div>
+    <div class="diff-title">Corredor Bilateral Propio</div>
+    <div class="diff-hook">"Tenemos oficinas propias en Santiago y Lima. No subcontratamos el otro lado."</div>
+    <div class="diff-detail">Control real de ambos extremos. Cuando hay problema, no dependemos de un agente que no contesta.</div>
+  </div>
+
+  <div class="diff-card">
+    <div class="diff-num">02</div>
+    <div class="diff-title">Especialización Minería</div>
+    <div class="diff-hook">"Manejamos maquinaria crítica. Sabemos lo que cuesta un día de parada de planta."</div>
+    <div class="diff-detail">Customs especializados, rutas validadas, aduaneros que conocen los HS codes de equipo pesado.</div>
+  </div>
+
+  <div class="diff-card">
+    <div class="diff-num">03</div>
+    <div class="diff-title">Respuesta en 24h</div>
+    <div class="diff-hook">"Cotización en 24 horas. Contacto directo, sin tickets."</div>
+    <div class="diff-detail">No call center. El cliente tiene WhatsApp del operador. Si hay problema, se resuelve ese día.</div>
+  </div>
+
+  <div class="diff-card">
+    <div class="diff-num">04</div>
+    <div class="diff-title">ISO 9001 + Trazabilidad</div>
+    <div class="diff-hook">"Sistema de calidad certificado. Cada shipment tiene seguimiento documental completo."</div>
+    <div class="diff-detail">Importante para clientes que necesitan auditorías, reportes de trazabilidad o compliance corporativo.</div>
+  </div>
+</div>
+
+<!-- PREGUNTAS -->
+<div id="preguntas" class="tab-content">
+  <div class="section-title">PREGUNTAS CLAVE</div>
+  <p class="section-sub">Escucha el 70%. Habla el 30%. Estas preguntas abren todo.</p>
+
+  <div class="card">
+    <h3>🔍 Preguntas de Diagnóstico</h3>
+    <ul>
+      <li>¿Qué tipo de carga mueven? ¿Origen / destino?</li>
+      <li>¿Cuál es su mayor problema logístico ahora mismo?</li>
+      <li>¿Con quién trabajan actualmente?</li>
+      <li>¿Qué tan crítico es el timing para ustedes?</li>
+      <li>¿Han tenido problemas de aduana o demoras?</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>🎯 Preguntas de Calificación</h3>
+    <ul>
+      <li>¿Cuántos shipments al mes aproximadamente?</li>
+      <li>¿Hay rutas nuevas que estén evaluando?</li>
+      <li>¿Quién toma la decisión logística en su empresa?</li>
+      <li>¿En qué plazo estarían evaluando un cambio?</li>
+    </ul>
+  </div>
+
+  <div class="power-box">
+    <h3>💡 La Pregunta de Oro</h3>
+    <div class="quote" style="margin-top:8px; background:transparent; padding:0; font-size:14px">
+      "Si tuvieran que cambiar algo de su logística actual en los próximos 6 meses, ¿qué sería?"
+    </div>
+    <p style="margin-top:10px; font-size:13px; color:#aaa">Esta pregunta revela el pain point real sin presionar.</p>
+  </div>
+</div>
+
+<!-- OBJECIONES -->
+<div id="objeciones" class="tab-content">
+  <div class="section-title">MANEJO DE OBJECIONES</div>
+  <p class="section-sub">Reconoce → Responde brevemente → Regresa con pregunta.</p>
+
+  <div class="objection">
+    <div class="objection-title">❌ "Ya tenemos proveedor"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Perfecto, no vine a reemplazar a nadie. Solo a mostrar qué hacemos distinto. ¿Qué es lo que más valoran de su proveedor actual?"</p>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="objection-title">❌ "Eres muy joven"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Sí. Soy la cara nueva de 20 años de operación. Detrás mío hay especialistas en customs, maquinaria y timing. Mi rol es entenderte y que el equipo cumpla. ¿Eso tiene sentido?"</p>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="objection-title">❌ "Necesito referencias"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Claro. Trabajamos con VULCO, WEIR, GELYMAR, SANDVIK. Te paso contacto del equipo para que te cuenten casos directos. ¿Cuál sector es más cercano a lo tuyo?"</p>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="objection-title">❌ "¿Cuánto cobran?"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Depende de la operación. No quiero darte un número que no aplique. Dame los datos del shipment y en 24h tenés cotización exacta. ¿Cuál sería el próximo movimiento?"</p>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="objection-title">❌ "¿Qué pasa si hay problema?"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Tenés mi contacto directo. Si algo sale del plan, me llamás. Resolvemos en 24h. No es ticket a soporte—es contacto directo."</p>
+    </div>
+  </div>
+
+  <div class="objection">
+    <div class="objection-title">❌ "¿Tienen seguro?"</div>
+    <div class="answer">
+      <div class="answer-label">✅ Respuesta</div>
+      <p>"Sí. Cobertura estándar en todos los shipments. Podemos elevar según el valor de la carga. ¿Qué cobertura necesitarían?"</p>
+    </div>
+  </div>
+
+  <div class="power-box" style="margin-top:14px">
+    <h3>🔁 Patrón Universal</h3>
+    <p><strong>1.</strong> Valida: "Buena pregunta" / "Tiene sentido"</p>
+    <p style="margin-top:6px"><strong>2.</strong> Responde: Breve y honesto</p>
+    <p style="margin-top:6px"><strong>3.</strong> Regresa: "¿Eso responde?" o pregunta siguiente</p>
+    <p style="margin-top:10px; color:#ff6b6b; font-size:13px"><strong>Nunca:</strong> Te quedes en silencio, inventes datos, suenes defensivo.</p>
+  </div>
+</div>
+
+<!-- CIERRE -->
+<div id="cierre" class="tab-content">
+  <div class="section-title">SECUENCIA DE CIERRE</div>
+  <p class="section-sub">De "interesante" a "dame tu contacto" en 12 minutos.</p>
+
+  <div class="sequence-step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <strong>Apertura (1 min)</strong>
+      <p>Nombre, empresa, por qué estás en Brasil. Relación humana, no venta.</p>
+    </div>
+  </div>
+
+  <div class="sequence-step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <strong>Escucha (3-4 min)</strong>
+      <p>Preguntas sobre SU operación. ¿Qué mueven? ¿De dónde? ¿Cuál es el pain point? Escucha 70%.</p>
+    </div>
+  </div>
+
+  <div class="sequence-step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <strong>Match (2-3 min)</strong>
+      <p>Conecta lo que escuchaste con diferenciadores. Habla de cómo resuelves SU problema, no de Martiline en abstracto.</p>
+    </div>
+  </div>
+
+  <div class="sequence-step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <strong>Test (1 min)</strong>
+      <p>"¿Si te traemos cotización sin compromiso para tu próximo shipment?"</p>
+    </div>
+  </div>
+
+  <div class="sequence-step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <strong>Contacto (1 min)</strong>
+      <p>No preguntes "¿Querés que contacte?"—asume: <em>"¿Email o WhatsApp para la cotización?"</em></p>
+    </div>
+  </div>
+
+  <div class="sequence-step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <strong>Cierre</strong>
+      <p>"Genial. Te contacta el equipo mañana. Gracias por tu tiempo."</p>
+    </div>
+  </div>
+
+  <div class="power-box">
+    <h3>🔥 Señales "Está Caliente"</h3>
+    <ul>
+      <li>✅ Hace preguntas específicas ("¿Cuánto?" "¿Cuándo?")</li>
+      <li>✅ Describe su pain point con detalle</li>
+      <li>✅ Pregunta por casos similares al suyo</li>
+      <li>✅ Pide referencias = <strong>MUY CALIENTE</strong></li>
+    </ul>
+  </div>
+
+  <div class="alert-green">
+    <h3>⚠️ CRÍTICO: Obtén Su Contacto</h3>
+    <p>Si termina sin email/teléfono = fracaso.</p>
+    <p style="margin-top:8px"><strong>Antes de irte:</strong> "Una cosa—si pido cifras al equipo, necesito dónde contactarte. ¿Email o número?"</p>
+    <p style="margin-top:8px">Si dice que no: "Ningún problema. Soy Martín de Martiline. Aquí está mi contacto."</p>
+  </div>
+</div>
+
+<!-- PRÁCTICA -->
+<div id="practica" class="tab-content">
+  <div class="section-title">SIMULADOR</div>
+  <p class="section-sub">Practica 5 veces con tu papá. Él juega cliente difícil.</p>
+
+  <div class="card">
+    <h3>Escenario 1: Pain Point Velocidad</h3>
+    <button class="collapse-btn" onclick="toggleCollapse(this)">► Ver situación</button>
+    <div class="collapse-content">
+      <div class="quote">"Importamos repuestos desde Perú. El problema es que demoran mucho en aduana. ¿Qué ofrece Martiline?"</div>
+    </div>
+    <textarea class="textarea" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <button class="btn" onclick="checkAnswer(1)">Verificar</button>
+  </div>
+
+  <div class="card">
+    <h3>Escenario 2: Objeción Edad</h3>
+    <button class="collapse-btn" onclick="toggleCollapse(this)">► Ver situación</button>
+    <div class="collapse-content">
+      <div class="quote">"Eres joven. ¿Cuántos años tienes? No sé si confiar mi maquinaria crítica a alguien sin experiencia."</div>
+    </div>
+    <textarea class="textarea" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <button class="btn" onclick="checkAnswer(2)">Verificar</button>
+  </div>
+
+  <div class="card">
+    <h3>Escenario 3: Pregunta de Precio</h3>
+    <button class="collapse-btn" onclick="toggleCollapse(this)">► Ver situación</button>
+    <div class="collapse-content">
+      <div class="quote">"¿Cuáles son sus tarifas? Necesito comparar con mi proveedor actual."</div>
+    </div>
+    <textarea class="textarea" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <button class="btn" onclick="checkAnswer(3)">Verificar</button>
+  </div>
+
+  <div class="card">
+    <h3>Escenario 4: "Ya tengo proveedor"</h3>
+    <button class="collapse-btn" onclick="toggleCollapse(this)">► Ver situación</button>
+    <div class="collapse-content">
+      <div class="quote">"Trabajamos hace 5 años con otro forwarder. No estamos buscando cambio."</div>
+    </div>
+    <textarea class="textarea" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <button class="btn" onclick="checkAnswer(4)">Verificar</button>
+  </div>
+
+  <div class="power-box">
+    <h3>📋 Checklist Antes de Brasil</h3>
+    <ul class="checklist" style="margin-left:0">
+      <li><span class="check-icon">📝</span> Memoriza los 4 diferenciadores (concepto, no textual)</li>
+      <li><span class="check-icon">🎬</span> 5 sesiones de práctica de 10 min con tu papá</li>
+      <li><span class="check-icon">👥</span> Aprende nombres de clientes: VULCO, WEIR, DSI, SANDVIK, GELYMAR</li>
+      <li><span class="check-icon">📋</span> Ten lista de preguntas (origen, peso, urgencia, proveedor actual)</li>
+      <li><span class="check-icon">📱</span> WhatsApp y email listos para intercambiar</li>
+      <li><span class="check-icon">😴</span> Duerme bien la noche anterior</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>MARTÍN — Sistema Liminal · Feria Brasil 2026</p>
+  <p>Martiline SpA / SAC</p>
+</div>
+
+<script>
+const CHECKS = {
+  1: '¿Preguntaste más que hablaste?\n¿Mencionaste velocidad/aduana?\n¿Pediste más detalles de su operación?',
+  2: '¿Transferiste confianza al equipo detrás?\n¿No te defendiste ni explicaste de más?\n¿Reposicionaste la edad como ventaja operativa?',
+  3: '¿Evitaste dar un número?\n¿Pediste datos del shipment antes de cotizar?\n¿Reencuadraste de precio a valor/servicio?',
+  4: '¿No atacaste a su proveedor actual?\n¿Preguntaste qué valoran de ese proveedor?\n¿Ofreciste cotización sin compromiso?'
+};
+
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  btn.classList.add('active');
+  btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  localStorage.setItem('lastTab', name);
+}
+
+function toggleCollapse(btn) {
+  const c = btn.nextElementSibling;
+  const open = c.classList.toggle('show');
+  btn.textContent = open ? '▼ Ocultar situación' : '► Ver situación';
+}
+
+function checkAnswer(n) {
+  alert('✅ VERIFICA:\n\n' + CHECKS[n]);
+}
+
+function toggleTheme() {
+  const light = document.body.classList.toggle('light');
+  document.getElementById('themeBtn').textContent = light ? '🌙' : '☀️';
+  localStorage.setItem('theme', light ? 'light' : 'dark');
+}
+
+// Init
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+  document.body.classList.add('light');
+  document.getElementById('themeBtn').textContent = '🌙';
+}
+
+const savedTab = localStorage.getItem('lastTab');
+if (savedTab) {
+  const tabBtn = document.querySelector(`[onclick*="'${savedTab}'"]`);
+  if (tabBtn) { tabBtn.click(); }
+}
+</script>
+</body>
+</html>
